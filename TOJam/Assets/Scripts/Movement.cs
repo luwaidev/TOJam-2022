@@ -77,6 +77,7 @@ public class Movement : MonoBehaviour
             verticalVelocity.y = 0;
         }
 
+        /**
         // Jumping
         if (jumping)
         {
@@ -86,7 +87,7 @@ public class Movement : MonoBehaviour
             }
         }
         jumping = false;
-
+        **/
 
         verticalVelocity.y += gravity * Time.deltaTime;
         controller.Move(verticalVelocity * Time.deltaTime);
