@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; 
+using TMPro;
 
 public class PuddleScript : MonoBehaviour, Interactables
 {
@@ -13,6 +13,8 @@ public class PuddleScript : MonoBehaviour, Interactables
 
     [SerializeField] private GameObject textObject;
     private TMP_Text text;
+
+    public AudioSource clean;
 
     public void Awake()
     {
@@ -28,6 +30,7 @@ public class PuddleScript : MonoBehaviour, Interactables
 
     public void OnInteract()
     {
+        clean.Play();
         Destroy(gameObject);
     }
 

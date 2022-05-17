@@ -3,7 +3,62 @@ guid: 94fca8c6b6de55c4fbfbf790754ab187
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black Plastic.001
+    second: {fileID: 2100000, guid: 3fa793a27dce72849945cad07356f26f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Carpet
+    second: {fileID: 2100000, guid: a0c0e76d3bd735640b8943e0a88dc110, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fabric.001
+    second: {fileID: 2100000, guid: 9abb6b0e53f69c7458ab3bf038662cc1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Matal solid paint white
+    second: {fileID: 2100000, guid: aff23139e8f4fd64c9695033aba7a8a1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 2261cedb1ef0ba5489a55e66f9467843, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal.001
+    second: {fileID: 2100000, guid: 6c18bbbf34915e246bae5b5127b6cadd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Office Ceiling
+    second: {fileID: 2100000, guid: 10ee368467934964592b763b1a9f2843, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Old White Metal.001
+    second: {fileID: 2100000, guid: 53d2d2db7f293b6419b16f4f9be468e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plaster white
+    second: {fileID: 2100000, guid: afb3130ede86f7548bd366a235d77005, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plaster white.001
+    second: {fileID: 2100000, guid: 36aa5fce63543e64b985ac283292c5f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: table leg
+    second: {fileID: 2100000, guid: 5a9481c7db1f07348a6757990eca0ee1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

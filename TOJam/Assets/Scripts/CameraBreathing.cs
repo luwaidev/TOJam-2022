@@ -8,6 +8,8 @@ public class CameraBreathing : MonoBehaviour
     public float amplitude = 0.015f;
     public float period = 1f;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +23,7 @@ public class CameraBreathing : MonoBehaviour
         float xValue = Time.timeSinceLevelLoad / period;
         float distance = amplitude * Mathf.Sin(xValue);
         transform.localPosition = new Vector3(0, startPos + distance, 0);
+
+
     }
 }

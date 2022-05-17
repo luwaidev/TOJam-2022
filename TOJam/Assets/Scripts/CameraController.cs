@@ -43,6 +43,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float bobLength;
     [SerializeField] private float maxBob;
 
+    public Transform footstep;
+
 
     /// <summary>
     /// Input Calls
@@ -165,7 +167,17 @@ public class CameraController : MonoBehaviour
             currentPos.x += Mathf.Cos(Time.time * frequency / 2) * amplitude * 2;
             transform.localPosition = currentPos + cameraStartPos;
             moving = true;
-        } else
+
+            if (Mathf.Sin(Time.time * frequency) <= -0.95 && transform != null)
+            {
+                for (int i = 0; i < footstep.childCount; i++)
+                {
+                    if (footstep.GetChild(i).GetComponent<AudioSource>().isPlaying) return;
+                }
+                footstep.GetChild(Random.Range(0, 3)).GetComponent<AudioSource>().Play();
+            }
+        }
+        else
         {
             moving = false;
         }
@@ -189,7 +201,7 @@ public class CameraController : MonoBehaviour
     {
         grounded = movementScript.grounded;
     }
-    
+
     void LandBob()
     {
         if ((lastPos.y != playerTransform.transform.position.y) && grounded)
@@ -200,12 +212,13 @@ public class CameraController : MonoBehaviour
             Vector3 bobPosition = new Vector3(transform.localPosition.x, lastPos.y - posDiff, transform.localPosition.z);
 
             transform.localPosition = Vector3.Slerp(transform.localPosition, bobPosition, Time.deltaTime);
-        } else
+        }
+        else
         {
             bobbing = false;
         }
     }
-    
+
     void RecordPos()
     {
         if ((playerObject.GetComponent<CharacterController>().velocity.y == 0) && !bobbing)
