@@ -168,7 +168,7 @@ public class CameraController : MonoBehaviour
             transform.localPosition = currentPos + cameraStartPos;
             moving = true;
 
-            if (Mathf.Sin(Time.time * frequency) <= -0.95 && transform != null)
+            if (Mathf.Sin(Time.time * frequency) <= -0.95 && transform != null && footstep != null)
             {
                 for (int i = 0; i < footstep.childCount; i++)
                 {

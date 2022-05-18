@@ -48,17 +48,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadScene(sceneName));
     }
 
-    public void FirstTimeLoadingGame()
-    {
-        if (loadingScene) StartCoroutine(FirstTimeLoadingGameCutscene());
-    }
-    public IEnumerator FirstTimeLoadingGameCutscene()
-    {
-        yield return new WaitForSeconds(1);
-
-        LoadScene("Game");
-    }
-
     public IEnumerator Kill()
     {
         GetComponent<AudioSource>().Play();
@@ -128,6 +117,10 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        TogglePause();
+    }
 
     public void TogglePause()
     {

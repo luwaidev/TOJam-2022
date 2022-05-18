@@ -24,8 +24,8 @@ public class Movement : MonoBehaviour
 
 
     //Jumping
-    [SerializeField] private float jumpHeight = 3.5f;
-    bool jumping;
+    //[SerializeField] private float jumpHeight = 3.5f;
+    //bool jumping;
 
 
     /// <summary>
@@ -38,7 +38,7 @@ public class Movement : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        jumping = true;
+        //jumping = true;
     }
 
 
