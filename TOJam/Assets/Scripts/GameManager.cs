@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +22,17 @@ public class GameManager : MonoBehaviour
     public bool loaded;
     public bool loadingScene;
     public bool paused;
+    float volume = 0.5f;
+    float brightness = -0.5f;
+    public float sens = 4;
+
+    public Volume v;
+    public ColorAdjustments c;
+
+    [Header("Sounds")]
+    public AudioSource hitSound;
+    public AudioSource buildupSound;
+
 
 
     private void Awake()
@@ -30,6 +43,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        v.profile.TryGet(out c);
     }
     public void Load(string sceneName)
     {
@@ -50,10 +64,16 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator Kill()
     {
-        GetComponent<AudioSource>().Play();
-        yield return new WaitForSeconds(1.7f);
+        if (loadingScene)
+        {
+            yield break;
+        }
+        loadingScene = true;
+        yield return new WaitForSeconds(1f);
+        buildupSound.Play();
+        yield return new WaitForSeconds(2.25f);
+        hitSound.Play();
         SceneManager.LoadScene("Kill");
-        transition.SetTrigger("Transition");
         yield return new WaitForSeconds(3);
         Load("Menu Scene");
     }
@@ -76,7 +96,10 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator LoadScene(string sceneName)
     {
-
+        if (paused)
+        {
+            TogglePause();
+        }
         loaded = true;
         loadingScene = true;
         transition.SetTrigger("Transition"); // Start transitioning scene out
@@ -103,12 +126,31 @@ public class GameManager : MonoBehaviour
         yield return null;
 
 
+        //  Set volume
+        AudioListener.volume = volume;
 
+
+        if (GameObject.Find("CameraHolder") != null)
+        {
+            GameObject.Find("CameraHolder").GetComponent<CameraController>().sens = Vector2.one * sens;
+        }
 
         instance = this; // Reset self as GameManager instance
 
         transition.SetTrigger("Transition"); // Start transitioning scene back
 
+        if (sceneName != "Menu Scene")
+        {
+
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
         yield return new WaitForSeconds(sceneTransitionTime); // Wait for transition
         loadingScene = false;
 
@@ -119,14 +161,23 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        TogglePause();
+        //
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame) TogglePause();
     }
 
     public void TogglePause()
     {
-        paused = !paused;
-        Time.timeScale = (paused) ? 0 : 1;
-        pauseMenu.SetBool("Paused", paused);
+
+        if (SceneManager.GetActiveScene().name != "Menu Scene" && !loadingScene)
+        {
+            paused = !paused;
+            Time.timeScale = (paused) ? 0 : 1;
+            pauseMenu.Play(paused ? "Paused" : "Unpaused");
+            Cursor.visible = paused;
+            Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
+
+        }
     }
 
     public IEnumerator TimeEffect()
@@ -134,5 +185,36 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(0.1f);
         Time.timeScale = 1;
+    }
+
+    public void OnVolumeChange(float _volume)
+    {
+        volume = _volume;
+        AudioListener.volume = volume;
+    }
+
+    public void OnBrightnessChange(float _brightness)
+    {
+        brightness = _brightness;
+        print(brightness);
+        c.postExposure.value = brightness;
+
+    }
+
+    public void OnSensitivityChange(float _sens)
+    {
+        sens = _sens;
+        if (GameObject.Find("CameraHolder") != null)
+        {
+            print(sens);
+            GameObject.Find("CameraHolder").GetComponent<CameraController>().sens = Vector2.one * sens;
+        }
+    }
+
+    public void OnToggleFullscreen(bool fullscreen)
+    {
+
+        // Toggle fullscreen
+        Screen.fullScreen = fullscreen;
     }
 }
